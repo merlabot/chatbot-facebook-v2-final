@@ -485,6 +485,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                     fbService.handleMessages(messages, sender);
                 }
             }
+            break;
 
             default:
                 //unhandled action, just send back the text
