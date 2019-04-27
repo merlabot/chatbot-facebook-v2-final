@@ -452,7 +452,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                     && contexts[0].parameters.fields['job-vacancy'] != '') ? contexts[0].parameters.fields['job-vacancy'].stringValue : '';
 
 
-                if (phone_number == '' && user_name != '' && previous_job != '' && years_of_experience == '') {
+                if (phone_number == '' && user_name == '' && previous_job == '' && years_of_experience == '') {
 
                     let replies = [
                         {
@@ -484,32 +484,6 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 }
             }
             break;
-        case "menu-flow":
-            if (fbService.isDefined(contexts[0]) &&
-                (contexts[0].name.includes('menu-flow') || contexts[0].name.includes('menu-flow_dialog_context'))
-                && contexts[0].parameters) {
-                let user_location = (fbService.isDefined(contexts[0].parameters.fields['user-location'])
-                    && contexts[0].parameters.fields['user-location'] != '') ? contexts[0].parameters.fields['user-location'].stringValue : '';
-
-            if (user_location == '') {
-
-                 let replies = [
-                        {
-                            "content_type":"text",
-                            "title":"응",
-                            "payload":"응"
-                        },
-                        {
-                            "content_type":"text",
-                            "title":"아니",
-                            "payload":"아니"
-                        }
-                    ];
-                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
-            }
-            }
-            break;
-
 
             default:
                 //unhandled action, just send back the text
