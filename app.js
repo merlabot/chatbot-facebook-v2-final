@@ -434,6 +434,8 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }, 3000)
 
             break;
+
+            // condition ? ifTrue : ifFalse
         case "detailed-application":
             if (fbService.isDefined(contexts[0]) &&
                 (contexts[0].name.includes('job_application') || contexts[0].name.includes('job-application-details_dialog_context'))
@@ -482,6 +484,26 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 }
             }
             break;
+        case "menu-flow":
+            if ( parameters.fields['user-location'].stringValue!='') {
+
+                 let replies = [
+                        {
+                            "content_type":"text",
+                            "title":"응",
+                            "payload":"응"
+                        },
+                        {
+                            "content_type":"text",
+                            "title":"아니",
+                            "payload":"아니"
+                        }
+                    ];
+                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
+            }
+            break;
+
+
 		default:
 			//unhandled action, just send back the text
             fbService.handleMessages(messages, sender);
