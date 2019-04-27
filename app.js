@@ -485,40 +485,6 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                     fbService.handleMessages(messages, sender);
                 }
             }
-            break;
-            case "menu-flow":
-             let replies = [
-                        {
-                            "content_type":"text",
-                            "title":"응",
-                            "payload":"응"
-                        },
-
-                        {
-                            "content_type":"text",
-                            "title":"아니",
-                            "payload":"아니"
-                        }
-                    ];
-            fbService.sendQuickReply(sender, "지금 싱가폴에 있어?", replies);
-            fbService.sendTextMessage(sender, "그렇구나,");
-              let replies = [
-                        {
-                            "content_type":"text",
-                            "title":"좋아",
-                            "payload":"좋아"
-                        },
-
-                        {
-                            "content_type":"text",
-                            "title":"너무 더워",
-                            "payload":"너무 더워"
-                        }
-                    ];
-            fbService.sendQuickReply(sender, "싱가폴 어때?", replies);
-            break;
-
-
 
             default:
                 //unhandled action, just send back the text
