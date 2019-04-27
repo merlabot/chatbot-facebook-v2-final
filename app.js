@@ -451,8 +451,16 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 let job_vacancy = (fbService.isDefined(contexts[0].parameters.fields['job-vacancy'])
                     && contexts[0].parameters.fields['job-vacancy'] != '') ? contexts[0].parameters.fields['job-vacancy'].stringValue : '';
 
+<<<<<<< HEAD
                 // quick reply for 1st parameter
                 if (phone_number == '' && user_name != '' && previous_job != '' && years_of_experience == '') {
+||||||| merged common ancestors
+
+                if (phone_number == '' && user_name == '' && previous_job == '' && years_of_experience == '') {
+=======
+                // quick reply for 1st parameter
+                if (phone_number == '' && user_name == '' && previous_job == '' && years_of_experience == '') {
+>>>>>>> heroku/master
 
                     let replies = [
                         {
@@ -472,7 +480,74 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                         }
                     ];
                     fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
+<<<<<<< HEAD
 
+||||||| merged common ancestors
+=======
+                } else if (phone_number != '' && user_name == '' && previous_job == '' && years_of_experience == '') {
+                    // quick reply for 2nd parameter
+                    let replies = [
+                        {
+                            "content_type":"text",
+                            "title":"Less than 1 year",
+                            "payload":"Less than 1 year"
+                        },
+                        {
+                            "content_type":"text",
+                            "title":"Less than 10 years",
+                            "payload":"Less than 10 years"
+                        },
+                        {
+                            "content_type":"text",
+                            "title":"More than 10 years",
+                            "payload":"More than 10 years"
+                        }
+                    ];
+                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
+
+                } else if (phone_number != '' && user_name != '' && previous_job == '' && years_of_experience == '') {
+                    // quick reply for 3rd parameter
+                    let replies = [
+                        {
+                            "content_type":"text",
+                            "title":"Less than 1 year",
+                            "payload":"Less than 1 year"
+                        },
+                        {
+                            "content_type":"text",
+                            "title":"Less than 10 years",
+                            "payload":"Less than 10 years"
+                        },
+                        {
+                            "content_type":"text",
+                            "title":"More than 10 years",
+                            "payload":"More than 10 years"
+                        }
+                    ];
+                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
+
+                } else if (phone_number != '' && user_name != '' && previous_job != '' && years_of_experience == '') {
+                    // quick reply for 2nd parameter
+                    let replies = [
+                        {
+                            "content_type":"text",
+                            "title":"Less than 1 year",
+                            "payload":"Less than 1 year"
+                        },
+                        {
+                            "content_type":"text",
+                            "title":"Less than 10 years",
+                            "payload":"Less than 10 years"
+                        },
+                        {
+                            "content_type":"text",
+                            "title":"More than 10 years",
+                            "payload":"More than 10 years"
+                        }
+                    ];
+                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
+
+>>>>>>> heroku/master
                 } else if (phone_number != '' && user_name != '' && previous_job != '' && years_of_experience != ''
                     && job_vacancy != '') {
 
