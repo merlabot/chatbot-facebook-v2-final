@@ -452,70 +452,8 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                     && contexts[0].parameters.fields['job-vacancy'] != '') ? contexts[0].parameters.fields['job-vacancy'].stringValue : '';
 
                 // quick reply for 1st parameter
-                if (phone_number == '' && user_name == '' && previous_job == '' && years_of_experience == '') {
+                if (phone_number == '' && user_name != '' && previous_job != '' && years_of_experience == '') {
 
-                    let replies = [
-                        {
-                            "content_type":"text",
-                            "title":"Less than 1 year",
-                            "payload":"Less than 1 year"
-                        },
-                        {
-                            "content_type":"text",
-                            "title":"Less than 10 years",
-                            "payload":"Less than 10 years"
-                        },
-                        {
-                            "content_type":"text",
-                            "title":"More than 10 years",
-                            "payload":"More than 10 years"
-                        }
-                    ];
-                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
-                } else if (phone_number != '' && user_name == '' && previous_job == '' && years_of_experience == '') {
-                    // quick reply for 2nd parameter
-                    let replies = [
-                        {
-                            "content_type":"text",
-                            "title":"Less than 1 year",
-                            "payload":"Less than 1 year"
-                        },
-                        {
-                            "content_type":"text",
-                            "title":"Less than 10 years",
-                            "payload":"Less than 10 years"
-                        },
-                        {
-                            "content_type":"text",
-                            "title":"More than 10 years",
-                            "payload":"More than 10 years"
-                        }
-                    ];
-                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
-
-                } else if (phone_number != '' && user_name != '' && previous_job == '' && years_of_experience == '') {
-                    // quick reply for 3rd parameter
-                    let replies = [
-                        {
-                            "content_type":"text",
-                            "title":"Less than 1 year",
-                            "payload":"Less than 1 year"
-                        },
-                        {
-                            "content_type":"text",
-                            "title":"Less than 10 years",
-                            "payload":"Less than 10 years"
-                        },
-                        {
-                            "content_type":"text",
-                            "title":"More than 10 years",
-                            "payload":"More than 10 years"
-                        }
-                    ];
-                    fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
-
-                } else if (phone_number != '' && user_name != '' && previous_job != '' && years_of_experience == '') {
-                    // quick reply for 2nd parameter
                     let replies = [
                         {
                             "content_type":"text",
@@ -547,6 +485,39 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 }
             }
             break;
+            case "menu-flow":
+             let replies = [
+                        {
+                            "content_type":"text",
+                            "title":"응",
+                            "payload":"응"
+                        },
+
+                        {
+                            "content_type":"text",
+                            "title":"아니",
+                            "payload":"아니"
+                        }
+                    ];
+            fbService.sendQuickReply(sender, "지금 싱가폴에 있어?", replies);
+            fbService.sendTextMessage(sender, "그렇구나,");
+              let replies = [
+                        {
+                            "content_type":"text",
+                            "title":"좋아",
+                            "payload":"좋아"
+                        },
+
+                        {
+                            "content_type":"text",
+                            "title":"너무 더워",
+                            "payload":"너무 더워"
+                        }
+                    ];
+            fbService.sendQuickReply(sender, "싱가폴 어때?", replies);
+            break;
+
+
 
             default:
                 //unhandled action, just send back the text
