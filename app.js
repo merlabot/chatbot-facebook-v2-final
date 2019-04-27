@@ -485,7 +485,13 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }
             break;
         case "menu-flow":
-            if ( parameters.fields['user-location'].stringValue = '') {
+            if (fbService.isDefined(contexts[0]) &&
+                (contexts[0].name.includes('menu-flow') || contexts[0].name.includes('menu-flow_dialog_context'))
+                && contexts[0].parameters) {
+                let user_location = (fbService.isDefined(contexts[0].parameters.fields['user-location'])
+                    && contexts[0].parameters.fields['user-location'] != '') ? contexts[0].parameters.fields['user-location'].stringValue : '';
+
+            if (user_location == '') {
 
                  let replies = [
                         {
