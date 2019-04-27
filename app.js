@@ -485,7 +485,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }
             break;
         case "menu-flow":
-            if ( parameters.fields['user-location'].stringValue!='') {
+            if ( parameters.fields['user-location'].stringValue='') {
 
                  let replies = [
                         {
