@@ -323,8 +323,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
             dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION');
             break;
         case 'IN_SINGAPORE':
-            fbService.handleMessages(messages, sender);
-            fbService.sendTypingOn(sender);
+            fbService.sendTypingOn(senderID);
 
             //Ask how's Singapore
 
@@ -344,12 +343,11 @@ function handleQuickReply(senderID, quickReply, messageId) {
                     }
                 ];
 
-                fbService.sendQuickReply(sender, responseText, replies);
+                fbService.sendQuickReply(senderID, responseText, replies);
             }, 2000);
             break;
         case 'NOT_IN_SINGAPORE':
-            fbService.handleMessages(messages, sender);
-            fbService.sendTypingOn(sender);
+            fbService.sendTypingOn(senderID);
 
             //Ask if traveller
 
@@ -370,7 +368,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
                     }
                 ];
 
-                fbService.sendQuickReply(sender, responseText, replies);
+                fbService.sendQuickReply(senderID, responseText, replies);
             }, 2000);
             break;
 
