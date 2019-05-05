@@ -354,28 +354,28 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 fbService.sendQuickReply(sender, responseText, replies);
             }, 2000);
 
-        case "input.unknown":
-            fbService.handleMessages(messages, sender);
-            
-            fbService.sendTypingOn(sender);
-
-            //ask what user wants to do next
-            setTimeout(function() {
-                let responseText = "Can you please refrain your question or click the button to talk to a live agent. " +
-                    "I'm just a bot.";
-
-                let replies = [
-                    {
-                        "content_type": "text",
-                        "title": "Live agent",
-                        "payload": "LIVE_AGENT"
-                    }
-                ];
-
-                fbService.sendQuickReply(sender, responseText, replies);
-            }, 2000);
-
-            break;
+//        case "input.unknown":
+//            fbService.handleMessages(messages, sender);
+//
+//            fbService.sendTypingOn(sender);
+//
+//            //ask what user wants to do next
+//            setTimeout(function() {
+//                let responseText = "Can you please refrain your question or click the button to talk to a live agent. " +
+//                    "I'm just a bot.";
+//
+//                let replies = [
+//                    {
+//                        "content_type": "text",
+//                        "title": "Live agent",
+//                        "payload": "LIVE_AGENT"
+//                    }
+//                ];
+//
+//                fbService.sendQuickReply(sender, responseText, replies);
+//            }, 2000);
+//
+//            break;
         case "talk.human":
             fbService.sendPassThread(sender);
             break;
