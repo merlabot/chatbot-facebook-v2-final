@@ -62,9 +62,9 @@ if (!config.SERVER_URL) { //used for ink to static files
 //if (!config.WEATHER_API_KEY) { //weather api key
 //    throw new Error('missing WEATHER_API_KEY');
 //}
-//if (!config.PG_CONFIG) { //pg config
-//    throw new Error('missing PG_CONFIG');
-//}
+if (!config.PG_CONFIG) { //pg config
+    throw new Error('missing PG_CONFIG');
+}
 if (!config.FB_APP_ID) { //app id
     throw new Error('missing FB_APP_ID');
 }
