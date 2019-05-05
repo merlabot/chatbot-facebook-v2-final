@@ -451,9 +451,8 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 let job_vacancy = (fbService.isDefined(contexts[0].parameters.fields['job-vacancy'])
                     && contexts[0].parameters.fields['job-vacancy'] != '') ? contexts[0].parameters.fields['job-vacancy'].stringValue : '';
 
-                // quick reply for 1st parameter
-                if (phone_number == '' && user_name != '' && previous_job != '' && years_of_experience == '') {
 
+                if (phone_number == '' && user_name != '' && previous_job != '' && years_of_experience == '') {
 
                     let replies = [
                         {
@@ -473,7 +472,6 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                         }
                     ];
                     fbService.sendQuickReply(sender, messages[0].text.text[0], replies);
-
                 } else if (phone_number != '' && user_name != '' && previous_job != '' && years_of_experience != ''
                     && job_vacancy != '') {
 
