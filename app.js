@@ -327,6 +327,33 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
 	switch (action) {
+        case "input.welcome":
+            fbService.handleMessages(messages, sender);
+
+            fbService.sendTypingOn(sender);
+
+            //small talk
+
+             setTimeout(function() {
+                let responseText = "안녕! 나는 싱가폴의 보물 멀라봇이야" +
+                    "지금 싱가폴이야?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "응",
+                        "payload": "IN_SINGAPORE"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니",
+                        "payload": "NOT_IN_SINGAPORE"
+                    }
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 2000);
+
         case "input.unknown":
             fbService.handleMessages(messages, sender);
             
@@ -573,7 +600,7 @@ async function greetUserText(userId) {
 
 
 function sendFunNewsSubscribe(userId) {
-    let responceText = "I can send you latest fun technology news, " +
+    let responseText = "I can send you latest fun technology news, " +
         "you'll be on top of things and you'll get some laughts. How often would you like to receive them?";
 
     let replies = [
@@ -589,7 +616,7 @@ function sendFunNewsSubscribe(userId) {
         }
     ];
 
-    fbService.sendQuickReply(userId, responceText, replies);
+    fbService.sendQuickReply(userId, responseText, replies);
 }
 
 /*
@@ -658,11 +685,65 @@ function receivedPostback(event) {
             //user wants to chat
             fbService.sendTextMessage(senderID, "I love chatting too. Do you have any other questions for me?");
             break;
+        case 'MENU_RECOMMENDATION':
+            //recommend menu
+            dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION');
+            break;
+        case 'IN_SINGPORE':
+            fbService.handleMessages(messages, sender);
+            fbService.sendTypingOn(sender);
+
+            //Ask how's Singapore
+
+             setTimeout(function() {
+                let responseText = "그렇구나!" + "싱가폴 어때?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "좋아",
+                        "payload": "MENU_RECOMMENDATION"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "너무 더워 ㅜ",
+                        "payload": "MENU_RECOMMENDATION"
+                    }
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 2000);
+            break;
+        case 'NOT_IN_SINGPORE':
+            fbService.handleMessages(messages, sender);
+            fbService.sendTypingOn(sender);
+
+            //Ask if traveller
+
+             setTimeout(function() {
+                let responseText = "아항~" +
+                    "싱가포르 여행하려구?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "응ㅎㅎ",
+                        "payload": "MENU_RECOMMENDATION"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니 그냥 알아보는중~",
+                        "payload": "MENU_RECOMMENDATION"
+                    }
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 2000);
+            break;
 		default:
 			//unindentified payload
             fbService.sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
 			break;
-
 	}
 
 	console.log("Received postback for user %d and page %d with payload '%s' " +
