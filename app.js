@@ -57,7 +57,7 @@ if (!config.SERVER_URL) { //used for ink to static files
 //    throw new Error('missing EMAIL_FROM');
 //}
 //if (!config.EMAIL_TO) { //sending email
-//   throw new Error('missing EMAIL_TO');
+//    throw new Error('missing EMAIL_TO');
 //}
 //if (!config.WEATHER_API_KEY) { //weather api key
 //    throw new Error('missing WEATHER_API_KEY');
@@ -434,8 +434,6 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }, 3000)
 
             break;
-
-            // condition ? ifTrue : ifFalse
         case "detailed-application":
             if (fbService.isDefined(contexts[0]) &&
                 (contexts[0].name.includes('job_application') || contexts[0].name.includes('job-application-details_dialog_context'))
@@ -484,10 +482,9 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 }
             }
             break;
-
-            default:
-                //unhandled action, just send back the text
-                fbService.handleMessages(messages, sender);
+		default:
+			//unhandled action, just send back the text
+            fbService.handleMessages(messages, sender);
 	}
 }
 
