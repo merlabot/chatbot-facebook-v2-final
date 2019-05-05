@@ -689,7 +689,7 @@ function receivedPostback(event) {
             //recommend menu
             dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION');
             break;
-        case 'IN_SINGPORE':
+        case 'IN_SINGAPORE':
             fbService.handleMessages(messages, sender);
             fbService.sendTypingOn(sender);
 
@@ -714,7 +714,7 @@ function receivedPostback(event) {
                 fbService.sendQuickReply(sender, responseText, replies);
             }, 2000);
             break;
-        case 'NOT_IN_SINGPORE':
+        case 'NOT_IN_SINGAPORE':
             fbService.handleMessages(messages, sender);
             fbService.sendTypingOn(sender);
 
