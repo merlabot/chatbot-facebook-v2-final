@@ -456,6 +456,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
 //            }, 2000);
 //
 //            break;
+
         case "talk.human":
             fbService.sendPassThread(sender);
             break;
@@ -667,13 +668,58 @@ async function greetUserText(userId) {
     }
 
     if (user) {
-        sendTextMessage(userId, "Welcome " + user.first_name + '! ' +
-            'I can answer frequently asked questions for you ' +
-            'and I perform job interviews. What can I help you with?');
+        fbService.sendTextMessage(userId, "안녕 " + user.first_name + '쓰! ' +
+            '난 싱가포르의 보물 멀라봇이야!');
+         fbService.sendTypingOn(sender);
+
+            //small talk
+
+             setTimeout(function() {
+                let responseText = "안녕! 나는 싱가폴의 보물 멀라봇이야" +
+                    "지금 싱가폴이야?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "응",
+                        "payload": "IN_SINGAPORE"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니",
+                        "payload": "NOT_IN_SINGAPORE"
+                    }
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 2000);
+
     } else {
-        sendTextMessage(userId, 'Welcome! ' +
-            'I can answer frequently asked questions for you ' +
-            'and I perform job interviews. What can I help you with?');
+        fbService.sendTextMessage(userId, '안녕! ' +
+            '난 싱가포르의 보물 멀라봇이야!');
+        fbService.sendTypingOn(sender);
+
+            //small talk
+
+             setTimeout(function() {
+                let responseText = "안녕! 나는 싱가폴의 보물 멀라봇이야" +
+                    "지금 싱가폴이야?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "응",
+                        "payload": "IN_SINGAPORE"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니",
+                        "payload": "NOT_IN_SINGAPORE"
+                    }
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 2000);
     }
 }
 
