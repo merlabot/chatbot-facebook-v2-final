@@ -348,7 +348,7 @@ module.exports = {
      * Send a Gif using the Send API.
      *
      */
-    sendGifMessage: function(recipientId) {
+    sendGifMessage: function(recipientId,GifName) {
         let self = module.exports;
         var messageData = {
             recipient: {
@@ -358,7 +358,7 @@ module.exports = {
                 attachment: {
                     type: "image",
                     payload: {
-                        url: config.SERVER_URL + "/assets/instagram_logo.gif"
+                        url: config.SERVER_URL + GifName
                     }
                 }
             }
