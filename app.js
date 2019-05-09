@@ -414,7 +414,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
 
             break;
         case "ask-menu-flow":
-            fbService.sendGifMessage(senderID,"/assets/merlabot-hungry.gif");
+            fbService.sendGifMessage(sender,"/assets/merlabot-hungry.gif");
             setTimeout(function() {
                 let responseText = "배고프지! 내가 이따 뭐먹을지 정해줄께";
 
