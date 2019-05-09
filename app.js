@@ -319,8 +319,12 @@ function handleQuickReply(senderID, quickReply, messageId) {
             }, 2, senderID);
             break;
         case 'MENU_RECOMMENDATION':
-            //recommend menu
+            //ask if want to be recommended menu
             dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION');
+            break;
+        case 'MENU_RECOMMENDATION':
+            //recommend menu
+            dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION_YES');
             break;
         case 'IN_SINGAPORE':
             fbService.sendTypingOn(senderID);
@@ -407,6 +411,28 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
 
                 fbService.sendQuickReply(sender, responseText, replies);
             }, 2000);
+
+            break;
+        case "ask-menu-flow":
+            fbService.sendGifMessage(senderID,"/assets/merlabot-hungry.gif");
+            setTimeout(function() {
+                let responseText = "배고프지! 내가 이따 뭐먹을지 정해줄께";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "그래!",
+                        "payload": "MENU_RECOMMENDATION_YES"
+                    }
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 2000);
+
+            break;
+        case "menu-flow":
+            fbService.sendTextMessage(sender, "It's working");
+            break;
 
 //        case "input.unknown":
 //            fbService.handleMessages(messages, sender);
