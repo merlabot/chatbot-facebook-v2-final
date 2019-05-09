@@ -427,7 +427,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 ];
 
                 fbService.sendQuickReply(sender, responseText, replies);
-            }, 2000);
+            }, 4000);
 
             break;
         case "menu-flow":
