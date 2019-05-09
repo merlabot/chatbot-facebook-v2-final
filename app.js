@@ -322,7 +322,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
             //ask if want to be recommended menu
             dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION');
             break;
-        case 'MENU_RECOMMENDATION':
+        case 'MENU_RECOMMENDATION_YES':
             //recommend menu
             dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION_YES');
             break;
