@@ -670,7 +670,7 @@ async function greetUserText(userId) {
     if (user) {
         fbService.sendTextMessage(userId, "안녕 " + user.first_name + '쓰! ' +
             '난 싱가포르의 보물 멀라봇이야!');
-         fbService.sendTypingOn(sender);
+         fbService.sendTypingOn(userId);
 
             //small talk
 
@@ -691,13 +691,13 @@ async function greetUserText(userId) {
                     }
                 ];
 
-                fbService.sendQuickReply(sender, responseText, replies);
+                fbService.sendQuickReply(userId, responseText, replies);
             }, 2000);
 
     } else {
         fbService.sendTextMessage(userId, '안녕! ' +
             '난 싱가포르의 보물 멀라봇이야!');
-        fbService.sendTypingOn(sender);
+        fbService.sendTypingOn(userId);
 
             //small talk
 
@@ -718,7 +718,7 @@ async function greetUserText(userId) {
                     }
                 ];
 
-                fbService.sendQuickReply(sender, responseText, replies);
+                fbService.sendQuickReply(userId, responseText, replies);
             }, 2000);
     }
 }
