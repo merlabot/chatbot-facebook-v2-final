@@ -668,15 +668,12 @@ async function greetUserText(userId) {
     }
 
     if (user) {
-        fbService.sendTextMessage(userId, "안녕 " + user.first_name + '쓰! ' +
-            '난 싱가포르의 보물 멀라봇이야!');
          fbService.sendTypingOn(userId);
 
             //small talk
 
              setTimeout(function() {
-                let responseText = "안녕! 나는 싱가폴의 보물 멀라봇이야" +
-                    "지금 싱가폴이야?";
+                let responseText = "안녕!" + user.first_name + "쓰! "+" 나는 싱가폴의 보물 멀라봇이야." + " 지금 싱가폴이야?";
 
                 let replies = [
                     {
@@ -695,15 +692,12 @@ async function greetUserText(userId) {
             }, 2000);
 
     } else {
-        fbService.sendTextMessage(userId, '안녕! ' +
-            '난 싱가포르의 보물 멀라봇이야!');
         fbService.sendTypingOn(userId);
 
             //small talk
 
              setTimeout(function() {
-                let responseText = "안녕! 나는 싱가폴의 보물 멀라봇이야" +
-                    "지금 싱가폴이야?";
+               let responseText = "안녕!" + user.first_name + "쓰! "+" 나는 싱가폴의 보물 멀라봇이야." + " 지금 싱가폴이야?";
 
                 let replies = [
                     {
