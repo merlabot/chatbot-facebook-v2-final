@@ -431,8 +431,43 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
 
             break;
         case "menu-flow":
-            fbService.sendTextMessage(sender, "It's working");
+            setTimeout(function() {
+                let responseText = "뭐 먹을래?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "동남아의 맛",
+                        "payload": "sea"
+                    },
+                     {
+                        "content_type": "text",
+                        "title": "한국의 맛",
+                        "payload": "korean"
+                    },
+                     {
+                        "content_type": "text",
+                        "title": "중국의 맛",
+                        "payload": "chinese"
+                    },
+                     {
+                        "content_type": "text",
+                        "title": "모르겠다..",
+                        "payload": "etc"
+                    }
+
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 4000);
+
             break;
+        case "menu-recommendation-food_type":
+            food.returnRestaurant(parameters.fields['food_type'].stringValue, sender);
+            let reply = ``;
+            fbService.sendTextMessage(sender, reply);
+            break;
+
 
 //        case "input.unknown":
 //            fbService.handleMessages(messages, sender);
@@ -470,6 +505,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 }
             }, 0, sender);
             break;
+
         case "buy.iphone":
             colors.readUserColor(function(color) {
                     let reply;
