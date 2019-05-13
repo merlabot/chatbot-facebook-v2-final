@@ -38,8 +38,7 @@ module.exports = {
             if (err) {
                 return console.error('Error acquiring client', err.stack);
             }
-            client
-                .query(
+            client.query(
                     'SELECT color FROM public.users WHERE fb_id=$1',
                     [userId],
                     function(err, result) {
