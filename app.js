@@ -464,7 +464,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             break;
         case "menu-recommendation-food_type":
             food.returnRestaurant(parameters.fields['food_type'].stringValue, sender);
-            let reply = ${restaurant_name};
+            let reply = hi;
             fbService.sendTextMessage(sender, reply);
             break;
 
