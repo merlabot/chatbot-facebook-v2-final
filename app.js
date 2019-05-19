@@ -462,11 +462,11 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }, 4000);
 
             break;
-//        case "menu-recommendation-food_type":
-//            food.returnRestaurant(parameters.fields['food_type'].stringValue, sender);
-//            let reply = `hi`;
-//            fbService.sendTextMessage(sender, reply);
-//            break;
+        case "menu-recommendation-food_type":
+            food.returnRestaurant(parameters.fields['food_type'].stringValue, sender);
+            let reply = ${restaurant_name};
+            fbService.sendTextMessage(sender, reply);
+            break;
 
 
 //        case "input.unknown":

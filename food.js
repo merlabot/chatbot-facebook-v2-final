@@ -46,7 +46,7 @@ module.exports = {
                             console.log(err);
                             callback('');
                         } else {
-                            callback(result.rows[0]['color']);
+                            callback(result.rows[0]['restaurant_name']);
                         };
                     });
 
