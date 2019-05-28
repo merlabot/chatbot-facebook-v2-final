@@ -14,7 +14,7 @@ module.exports = {
             }
             client
                 .query(
-                    'SELECT color FROM public.iphone_colors',
+                    'SELECT restaurant_name FROM public.food WHERE food_type=$1 AND fb_id=$2',
                     function(err, result) {
                         if (err) {
                             console.log(err);
@@ -32,21 +32,21 @@ module.exports = {
     },
 
 
-    readUserColor: function(callback, userId) {
+    returnRestaurant: function(callback, userId) {
         var pool = new pg.Pool(config.PG_CONFIG);
         pool.connect(function(err, client, done) {
             if (err) {
                 return console.error('Error acquiring client', err.stack);
             }
             client.query(
-                    'SELECT color FROM public.users WHERE fb_id=$1',
+                    'SELECT restaurant_name FROM public.food WHERE food_type=$1 AND fb_id=$2',
                     [userId],
                     function(err, result) {
                         if (err) {
                             console.log(err);
                             callback('');
                         } else {
-                            callback(result.rows[0]['color']);
+                            callback(result.rows[0]['restaurant_name']);
                         };
                     });
 
@@ -54,22 +54,22 @@ module.exports = {
         pool.end();
     },
 
-    updateUserColor: function(color, userId) {
-        var pool = new pg.Pool(config.PG_CONFIG);
-        pool.connect(function(err, client, done) {
-            if (err) {
-                return console.error('Error acquiring client', err.stack);
-            }
-            let sql = 'UPDATE public.users SET color=$1 WHERE fb_id=$2';
-            client.query(sql,
-                [
-                    color,
-                    userId
-                ]);
-
-        });
-        pool.end();
-    }
+//    returnRestaurant: function(food_type, userId, restaurant_name) {
+//        var pool = new pg.Pool(config.PG_CONFIG);
+//        pool.connect(function(err, client, done) {
+//            if (err) {
+//                return console.error('Error acquiring client', err.stack);
+//            }
+//            let sql = 'SELECT restaurant_name FROM public.food WHERE food_type=$1 AND fb_id=$2';
+//            client.query(sql,
+//                [
+//                    restaurant_name,
+//                    userId
+//                ]);
+//
+//        });
+//        pool.end();
+//    }
 
 
 }

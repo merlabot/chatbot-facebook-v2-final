@@ -57,14 +57,14 @@ if (!config.SERVER_URL) { //used for ink to static files
 //    throw new Error('missing EMAIL_FROM');
 //}
 //if (!config.EMAIL_TO) { //sending email
-//   throw new Error('missing EMAIL_TO');
+//    throw new Error('missing EMAIL_TO');
 //}
 //if (!config.WEATHER_API_KEY) { //weather api key
 //    throw new Error('missing WEATHER_API_KEY');
 //}
-//if (!config.PG_CONFIG) { //pg config
-//    throw new Error('missing PG_CONFIG');
-//}
+if (!config.PG_CONFIG) { //pg config
+    throw new Error('missing PG_CONFIG');
+}
 if (!config.FB_APP_ID) { //app id
     throw new Error('missing FB_APP_ID');
 }
@@ -318,6 +318,64 @@ function handleQuickReply(senderID, quickReply, messageId) {
                 }
             }, 2, senderID);
             break;
+        case 'MENU_RECOMMENDATION':
+            //ask if want to be recommended menu
+            dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION');
+            break;
+        case 'MENU_RECOMMENDATION_YES':
+            //recommend menu
+            dialogflowService.sendEventToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, 'MENU_RECOMMENDATION_YES');
+            break;
+        case 'IN_SINGAPORE':
+            fbService.sendTypingOn(senderID);
+
+            //Ask how's Singapore
+
+             setTimeout(function() {
+                let responseText = "그렇구나!" + "싱가폴 어때?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "좋아",
+                        "payload": "MENU_RECOMMENDATION"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "너무 더워 ㅜ",
+                        "payload": "MENU_RECOMMENDATION"
+                    }
+                ];
+
+                fbService.sendQuickReply(senderID, responseText, replies);
+            }, 2000);
+            break;
+        case 'NOT_IN_SINGAPORE':
+            fbService.sendTypingOn(senderID);
+
+            //Ask if traveller
+
+             setTimeout(function() {
+                let responseText = "아항~" +
+                    "싱가포르 여행하려구?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "응ㅎㅎ",
+                        "payload": "MENU_RECOMMENDATION"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니 그냥 알아보는중~",
+                        "payload": "MENU_RECOMMENDATION"
+                    }
+                ];
+
+                fbService.sendQuickReply(senderID, responseText, replies);
+            }, 2000);
+            break;
+
         default:
             dialogflowService.sendTextQueryToDialogFlow(sessionIds, handleDialogFlowResponse, senderID, quickReplyPayload);
             break;
@@ -327,21 +385,27 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
 	switch (action) {
-        case "input.unknown":
+        case "input.welcome":
             fbService.handleMessages(messages, sender);
-            
+
             fbService.sendTypingOn(sender);
 
-            //ask what user wants to do next
-            setTimeout(function() {
-                let responseText = "Can you please refrain your question or click the button to talk to a live agent. " +
-                    "I'm just a bot.";
+            //small talk
+
+             setTimeout(function() {
+                let responseText = "안녕! 나는 싱가폴의 보물 멀라봇이야" +
+                    "지금 싱가폴이야?";
 
                 let replies = [
                     {
                         "content_type": "text",
-                        "title": "Live agent",
-                        "payload": "LIVE_AGENT"
+                        "title": "응",
+                        "payload": "IN_SINGAPORE"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니",
+                        "payload": "NOT_IN_SINGAPORE"
                     }
                 ];
 
@@ -349,6 +413,85 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }, 2000);
 
             break;
+        case "ask-menu-flow":
+            fbService.sendGifMessage(sender,"/assets/merlabot-hungry.gif");
+            setTimeout(function() {
+                let responseText = "배고프지! 내가 이따 뭐먹을지 정해줄께";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "그래!",
+                        "payload": "MENU_RECOMMENDATION_YES"
+                    }
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 4000);
+
+            break;
+        case "menu-flow":
+            setTimeout(function() {
+                let responseText = "뭐 먹을래?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "동남아의 맛",
+                        "payload": "sea"
+                    },
+                     {
+                        "content_type": "text",
+                        "title": "한국의 맛",
+                        "payload": "korean"
+                    },
+                     {
+                        "content_type": "text",
+                        "title": "중국의 맛",
+                        "payload": "chinese"
+                    },
+                     {
+                        "content_type": "text",
+                        "title": "모르겠다..",
+                        "payload": "etc"
+                    }
+
+                ];
+
+                fbService.sendQuickReply(sender, responseText, replies);
+            }, 4000);
+
+            break;
+//        case "menu-recommendation-food_type":
+//            food.returnRestaurant(parameters.fields['food_type'].stringValue, sender);
+//            let reply = hi;
+//            fbService.sendTextMessage(sender, reply);
+//            break;
+
+
+//        case "input.unknown":
+//            fbService.handleMessages(messages, sender);
+//
+//            fbService.sendTypingOn(sender);
+//
+//            //ask what user wants to do next
+//            setTimeout(function() {
+//                let responseText = "Can you please refrain your question or click the button to talk to a live agent. " +
+//                    "I'm just a bot.";
+//
+//                let replies = [
+//                    {
+//                        "content_type": "text",
+//                        "title": "Live agent",
+//                        "payload": "LIVE_AGENT"
+//                    }
+//                ];
+//
+//                fbService.sendQuickReply(sender, responseText, replies);
+//            }, 2000);
+//
+//            break;
+
         case "talk.human":
             fbService.sendPassThread(sender);
             break;
@@ -362,6 +505,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
                 }
             }, 0, sender);
             break;
+
         case "buy.iphone":
             colors.readUserColor(function(color) {
                     let reply;
@@ -560,20 +704,59 @@ async function greetUserText(userId) {
     }
 
     if (user) {
-        sendTextMessage(userId, "Welcome " + user.first_name + '! ' +
-            'I can answer frequently asked questions for you ' +
-            'and I perform job interviews. What can I help you with?');
+         fbService.sendTypingOn(userId);
+
+            //small talk
+
+             setTimeout(function() {
+                let responseText = "안녕!" + user.first_name + "쓰! "+" 나는 싱가폴의 보물 멀라봇이야." + " 지금 싱가폴이야?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "응",
+                        "payload": "IN_SINGAPORE"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니",
+                        "payload": "NOT_IN_SINGAPORE"
+                    }
+                ];
+
+                fbService.sendQuickReply(userId, responseText, replies);
+            }, 2000);
+
     } else {
-        sendTextMessage(userId, 'Welcome! ' +
-            'I can answer frequently asked questions for you ' +
-            'and I perform job interviews. What can I help you with?');
+        fbService.sendTypingOn(userId);
+
+            //small talk
+
+             setTimeout(function() {
+               let responseText = "안녕!" + user.first_name + "쓰! "+" 나는 싱가폴의 보물 멀라봇이야." + " 지금 싱가폴이야?";
+
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "응",
+                        "payload": "IN_SINGAPORE"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "아니",
+                        "payload": "NOT_IN_SINGAPORE"
+                    }
+                ];
+
+                fbService.sendQuickReply(userId, responseText, replies);
+            }, 2000);
     }
 }
 
 
 
 function sendFunNewsSubscribe(userId) {
-    let responceText = "I can send you latest fun technology news, " +
+    let responseText = "I can send you latest fun technology news, " +
         "you'll be on top of things and you'll get some laughts. How often would you like to receive them?";
 
     let replies = [
@@ -589,7 +772,7 @@ function sendFunNewsSubscribe(userId) {
         }
     ];
 
-    fbService.sendQuickReply(userId, responceText, replies);
+    fbService.sendQuickReply(userId, responseText, replies);
 }
 
 /*
@@ -658,11 +841,10 @@ function receivedPostback(event) {
             //user wants to chat
             fbService.sendTextMessage(senderID, "I love chatting too. Do you have any other questions for me?");
             break;
-		default:
+        default:
 			//unindentified payload
             fbService.sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
 			break;
-
 	}
 
 	console.log("Received postback for user %d and page %d with payload '%s' " +
