@@ -50,18 +50,6 @@ if (!config.FB_APP_SECRET) {
 if (!config.SERVER_URL) { //used for ink to static files
 	throw new Error('missing SERVER_URL');
 }
-//if (!config.SENGRID_API_KEY) { //sending email
-//    throw new Error('missing SENGRID_API_KEY');
-//}
-//if (!config.EMAIL_FROM) { //sending email
-//    throw new Error('missing EMAIL_FROM');
-//}
-//if (!config.EMAIL_TO) { //sending email
-//    throw new Error('missing EMAIL_TO');
-//}
-//if (!config.WEATHER_API_KEY) { //weather api key
-//    throw new Error('missing WEATHER_API_KEY');
-//}
 if (!config.PG_CONFIG) { //pg config
     throw new Error('missing PG_CONFIG');
 }
@@ -92,7 +80,6 @@ app.use(bodyParser.urlencoded({
 
 // Process application/json
 app.use(bodyParser.json());
-
 
 app.use(session(
     {
@@ -132,11 +119,7 @@ app.get('/auth/facebook', passport.authenticate('facebook',{scope:'public_profil
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect : '/broadcast/broadcast', failureRedirect: '/broadcast' }));
 
-
-
 app.set('view engine', 'ejs');
-
-
 
 const credentials = {
     client_email: config.GOOGLE_CLIENT_EMAIL,
