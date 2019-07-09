@@ -276,6 +276,25 @@ function receivedMessage(event) {
 function handleQuickReply(senderID, quickReply, messageId) {
     var quickReplyPayload = quickReply.payload;
     switch (quickReplyPayload) {
+        case "sea":
+            fbService.sendTypingOn(senderID);
+
+            setTimeout(function() {
+                fetch('https://api.sheety.co/6c3b2649-1e5a-480e-bf1c-353c138dd410').then(
+                    response => {
+                        return response.json();
+                    }).then(
+                        data => {
+                           let responseText = data[0].dialogue;
+                        }).catch(
+                            err => {
+                                console.log('The request failed!');
+                            }
+                        )
+                    fbService.sendTextMessage(senderID, responseText);
+                        }, 2000);
+
+            break;
         case "LIVE_AGENT":
             fbService.sendPassThread(senderID);
             break;
@@ -445,11 +464,9 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }, 4000);
 
             break;
-//        case "menu-recommendation-food_type":
-//            food.returnRestaurant(parameters.fields['food_type'].stringValue, sender);
-//            let reply = hi;
-//            fbService.sendTextMessage(sender, reply);
-//            break;
+       case "menu-recommendation-food_type":
+
+           break;
 
 
 //        case "input.unknown":
